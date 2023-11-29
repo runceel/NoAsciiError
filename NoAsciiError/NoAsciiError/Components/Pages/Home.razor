@@ -1,0 +1,36 @@
+﻿@page "/"
+@inject NavigationManager NavigationManager
+<PageTitle>Home</PageTitle>
+
+<h3>NavLink components</h3>
+
+NavLink component works fine.
+
+<ul>
+    <li>
+        <NavLink href="navtarget?text=HelloWorld">navtarget?text=HelloWorld</NavLink>
+    </li>
+    <li>
+        <NavLink href="navtarget?text=😀">navtarget?text=😀</NavLink>
+    </li>
+</ul>
+
+<h3>Form</h3>
+
+<form method="post" @formname="ascii" @onsubmit="NavigateToWithASCIIParameter">
+    <AntiforgeryToken />
+    <input type="submit" value='NavigationManager.NavigateTo("navtarget?text=HelloWorld")' />
+</form>
+
+<form method="post" @formname="nonascii" @onsubmit="NavigateToWithNonASCIIParameter">
+    <AntiforgeryToken />
+    <input type="submit" value='NavigationManager.NavigateTo("navtarget?text=😀")' />
+</form>
+
+@code {
+    private void NavigateToWithASCIIParameter() => 
+        NavigationManager.NavigateTo("navtarget?text=HelloWorld");
+
+    private void NavigateToWithNonASCIIParameter() => 
+        NavigationManager.NavigateTo("navtarget?text=😀");
+}

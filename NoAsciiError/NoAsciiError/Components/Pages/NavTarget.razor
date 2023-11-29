@@ -1,0 +1,13 @@
+﻿@page "/navtarget"
+
+<h3>NavTarget</h3>
+
+@if (!string.IsNullOrWhiteSpace(Text))
+{
+    <p>@Text</p>
+}
+
+@code {
+    [SupplyParameterFromQuery]
+    public string? Text { get; set; }
+}

@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using System.Text.Encodings.Web
 @inject NavigationManager NavigationManager
 <PageTitle>Home</PageTitle>
 
@@ -24,7 +25,7 @@ NavLink component works fine.
 
 <form method="post" @formname="nonascii" @onsubmit="NavigateToWithNonASCIIParameter">
     <AntiforgeryToken />
-    <input type="submit" value='NavigationManager.NavigateTo("navtarget?text=😀")' />
+    <input type="submit" value='NavigationManager.NavigateTo($"navtarget?text={Uri.EscapeDataString("😀")}")' />
 </form>
 
 @code {
@@ -32,5 +33,5 @@ NavLink component works fine.
         NavigationManager.NavigateTo("navtarget?text=HelloWorld");
 
     private void NavigateToWithNonASCIIParameter() => 
-        NavigationManager.NavigateTo("navtarget?text=😀");
+        NavigationManager.NavigateTo($"navtarget?text={Uri.EscapeDataString("😀")}");
 }
